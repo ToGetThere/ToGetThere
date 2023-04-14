@@ -1,0 +1,64 @@
+{
+  "name": "to-get-there-auth-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/to-get-there-auth-service/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/to-get-there-auth-service",
+        "main": "apps/to-get-there-auth-service/src/main.ts",
+        "tsConfig": "apps/to-get-there-auth-service/tsconfig.app.json",
+        "assets": ["apps/to-get-there-auth-service/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/to-get-there-auth-service/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "to-get-there-auth-service:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "to-get-there-auth-service:build:development"
+        },
+        "production": {
+          "buildTarget": "to-get-there-auth-service:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/to-get-there-auth-service/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/to-get-there-auth-service/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
