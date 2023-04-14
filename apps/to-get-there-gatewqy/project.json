@@ -1,0 +1,64 @@
+{
+  "name": "to-get-there-gatewqy",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/to-get-there-gatewqy/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/to-get-there-gatewqy",
+        "main": "apps/to-get-there-gatewqy/src/main.ts",
+        "tsConfig": "apps/to-get-there-gatewqy/tsconfig.app.json",
+        "assets": ["apps/to-get-there-gatewqy/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/to-get-there-gatewqy/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "to-get-there-gatewqy:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "to-get-there-gatewqy:build:development"
+        },
+        "production": {
+          "buildTarget": "to-get-there-gatewqy:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/to-get-there-gatewqy/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/to-get-there-gatewqy/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
