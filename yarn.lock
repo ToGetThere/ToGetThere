@@ -2839,7 +2839,7 @@
     url-loader "^4.1.1"
     webpack-merge "^5.8.0"
 
-"@nrwl/node@15.9.2":
+"@nrwl/node@15.9.2", "@nrwl/node@^15.9.2":
   version "15.9.2"
   resolved "https://registry.yarnpkg.com/@nrwl/node/-/node-15.9.2.tgz#9b55b6a3f61af562655bf07ee69cf3e19192517c"
   integrity sha512-PYxtRiZIrtkvz2d/QtSgY0953n5I+ZFEOMWFAZ8ntnydvpKs4jTved2pIpMCk4AadRKk/AJgJg9pwDK539XELw==
