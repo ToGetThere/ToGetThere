@@ -27,7 +27,7 @@
       "executor": "@nrwl/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "auth-service:build"
+        "buildTarget": "auth-service:build",
       },
       "configurations": {
         "development": {

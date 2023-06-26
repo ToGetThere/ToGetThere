@@ -1,22 +1,24 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { SystemConfig, systemConfiguration } from "@to-get-there/config";
+import { setupSwagger } from "./utils/setup-swagger.utils";
+import {AppModule} from "./app/app.module";
 
-import { AppModule } from './app/app.module';
+async function bootstrap(config: SystemConfig) {
+  const port = config.apiGateway.PORT;
+  const globalPrefix = config.apiGateway.URL_PREFIX;
 
-async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
+
   app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3000;
+
+  setupSwagger(app);
+
   await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
-  );
+
+  return config.apiGateway;
 }
 
-bootstrap();
+bootstrap(systemConfiguration)
+  .then((data) => Logger.log(`🚀 API Gateway is running! Check out the docs: ${data.URL}:${data.PORT}/docs`))
+  .catch(Logger.error);

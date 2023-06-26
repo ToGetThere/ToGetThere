@@ -1,13 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 
 import { AppService } from './app.service';
+import {GrpcMethod} from "@nestjs/microservices";
+import {User} from "@to-get-there/types";
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getData() {
-    return this.appService.getData();
+  @GrpcMethod('UserService', 'getUser')
+  getUser(): User {
+    return {
+      id: 'asdf',
+      name: 'ok i pull up'
+    };
   }
 }

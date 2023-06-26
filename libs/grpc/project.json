@@ -1,0 +1,19 @@
+{
+  "name": "grpc",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/grpc/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/grpc",
+        "main": "libs/grpc/src/index.ts",
+        "tsConfig": "libs/grpc/tsconfig.json",
+        "assets": ["libs/grpc/*.proto"]
+      }
+    }
+  },
+  "tags": []
+}

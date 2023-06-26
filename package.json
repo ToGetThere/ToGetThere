@@ -1,18 +1,30 @@
 {
   "name": "to-get-there",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "bundle:proto": "ts-node ./libs/grpc/src/bundle.ts",
+    "deploy:libs": "nx run-many --target=build --projects=config,grpc --parallel",
+    "deploy:apps": "nx run-many --target=deploy --projects=api-gateway,user-service --parallel",
+    "deploy:backend": "yarn bundle:proto && yarn deploy:libs && yarn deploy:apps && docker-compose up"
+  },
   "private": true,
   "dependencies": {
     "@expo/metro-config": "0.7.1",
+    "@grpc/grpc-js": "^1.8.16",
+    "@grpc/proto-loader": "^0.7.7",
     "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/microservices": "^10.0.3",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/swagger": "^7.0.6",
     "axios": "^1.0.0",
     "expo": "48.0.6",
     "expo-splash-screen": "~0.18.1",
     "expo-status-bar": "~1.4.4",
+    "guards": "link:@nestjs/core/guards",
+    "http-proxy-middleware": "^2.0.6",
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -87,4 +99,3 @@
     "typescript": "5.1.3"
   }
 }
-

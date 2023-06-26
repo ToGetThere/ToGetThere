@@ -4,6 +4,16 @@
   "sourceRoot": "apps/api-gateway/src",
   "projectType": "application",
   "targets": {
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx build api-gateway",
+          "docker build -f ./apps/api-gateway/Dockerfile . -t api-gateway"
+        ],
+        "parallel": false
+      }
+    },
     "build": {
       "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
@@ -13,10 +23,11 @@
         "compiler": "tsc",
         "outputPath": "dist/apps/api-gateway",
         "main": "apps/api-gateway/src/main.ts",
-        "tsConfig": "apps/api-gateway/tsconfig.app.json",
-        "assets": ["apps/api-gateway/src/assets"],
+        "tsConfig": "apps/api-gateway/tsconfig.json",
         "isolatedConfig": true,
-        "webpackConfig": "apps/api-gateway/webpack.config.js"
+        "webpackConfig": "apps/api-gateway/webpack.config.js",
+        "assets": ["apps/api-gateway/src/grpc/"],
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {},
@@ -43,20 +54,6 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/api-gateway/**/*.ts"]
-      }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "apps/api-gateway/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
       }
     }
   },
