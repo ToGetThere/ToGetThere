@@ -1,0 +1,17 @@
+FROM nikolaik/python-nodejs:python3.11-nodejs18
+
+WORKDIR /app
+
+COPY package.json /tmp/package.json
+COPY yarn.lock /tmp/yarn.lock
+RUN cd /tmp && yarn
+RUN mkdir -p /app && cp -a /tmp/node_modules /app/
+
+WORKDIR /app
+COPY . /app
+
+RUN yarn add @nrwl/nx-linux-arm64-gnu
+
+EXPOSE 9229
+
+CMD ["yarn", "nx", "run-many", "--target=serve", "--projects=api-gateway,user-service", "--parallel"]

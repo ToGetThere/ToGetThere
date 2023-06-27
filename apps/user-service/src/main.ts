@@ -7,8 +7,6 @@ import {getNestGRPCConfig} from "@to-get-there/grpc";
 async function bootstrap(config: SystemConfig) {
   const app = await NestFactory.createMicroservice(AppModule, getNestGRPCConfig('user'));
 
-  console.log(config.userService)
-
   await app.listen();
 
   return config.userService;

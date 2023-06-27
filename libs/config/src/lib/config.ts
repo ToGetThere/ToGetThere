@@ -4,6 +4,12 @@ export type ServiceConfig = {
   URL_PREFIX: string;
   URL: string;
   PORT: number;
+  database: {
+    NAME?: string;
+    USER?: string;
+    PASSWORD?: string;
+    HOST?: string;
+  }
 }
 
 export type SystemConfig = {
@@ -21,6 +27,12 @@ const getConfiguration = (module: string) => {
     PORT: Number.parseInt(process.env[`${module}_PORT`] ?? '3000'),
     URL: process.env[`${module}_URL`] ?? '',
     URL_PREFIX: 'api',
+    database: {
+      NAME: process.env[`${module}_DB_NAME`] ?? '',
+      USER: process.env[`${module}_DB_USER`] ?? '',
+      PASSWORD: process.env[`${module}_DB_PASSWORD`] ?? '',
+      HOST: process.env[`${module}_DB_HOST`] ?? '',
+    }
   }
 }
 

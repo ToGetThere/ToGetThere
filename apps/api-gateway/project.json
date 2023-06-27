@@ -9,7 +9,7 @@
       "options": {
         "commands": [
           "nx build api-gateway",
-          "docker build -f ./apps/api-gateway/Dockerfile . -t api-gateway"
+          "docker build -f ./apps/api-gateway/docker/Dockerfile . -t api-gateway"
         ],
         "parallel": false
       }
@@ -19,6 +19,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
+        "poll": 500,
         "target": "node",
         "compiler": "tsc",
         "outputPath": "dist/apps/api-gateway",
@@ -38,7 +39,7 @@
       "executor": "@nrwl/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "api-gateway:build"
+        "buildTarget": "api-gateway:build",
       },
       "configurations": {
         "development": {

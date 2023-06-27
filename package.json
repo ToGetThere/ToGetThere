@@ -3,10 +3,13 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "bundle:proto": "ts-node ./libs/grpc/src/bundle.ts",
+    "bundle:proto": "ts-node tools/bundle.ts",
     "deploy:libs": "nx run-many --target=build --projects=config,grpc --parallel",
     "deploy:apps": "nx run-many --target=deploy --projects=api-gateway,user-service --parallel",
-    "deploy:backend": "yarn bundle:proto && yarn deploy:libs && yarn deploy:apps && docker-compose up"
+    "dev:deploy:apps": "nx run-many --target=bootstrap:dev --projects=api-gateway --parallel",
+    "deploy:backend": "yarn bundle:proto && yarn deploy:libs && yarn deploy:apps && COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f deploy/docker-compose.prod.yml -p to-get-there --env-file=envs/.env.prod up",
+    "dev:deploy:backend": "COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f deploy/docker-compose.dev.yml -p to-get-there-dev --env-file=envs/.env.dev up",
+    "bootstrap": "yarn dev:deploy:backend"
   },
   "private": true,
   "dependencies": {
@@ -19,6 +22,7 @@
     "@nestjs/microservices": "^10.0.3",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^7.0.6",
+    "@nestjs/typeorm": "^10.0.0",
     "axios": "^1.0.0",
     "expo": "48.0.6",
     "expo-splash-screen": "~0.18.1",
@@ -26,6 +30,7 @@
     "guards": "link:@nestjs/core/guards",
     "http-proxy-middleware": "^2.0.6",
     "next": "13.1.1",
+    "pg": "^8.11.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-is": "18.2.0",
@@ -36,7 +41,8 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.0.0",
     "styled-components": "5.3.6",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "typeorm": "^0.3.17"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",

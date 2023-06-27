@@ -1,8 +1,9 @@
+// @ts-ignore
 import fs from 'fs';
 import {join} from "path";
 
 const moveConfig = (configName: string) => {
-  const root = join(__dirname, '../../../');
+  const root = join(__dirname, '../');
 
   const apps = fs.readdirSync(join(root, './apps/'), { withFileTypes: true })
     .filter(dirent => dirent.isDirectory() && !dirent.name.includes('app'))
@@ -14,7 +15,7 @@ const moveConfig = (configName: string) => {
     }
 
     fs.copyFileSync(
-      join(__dirname, `../${configName}.proto`),
+      join(root, `./libs/grpc/${configName}.proto`),
       join(root, `./apps/${app}/src/grpc/${configName}.proto`),
     );
   });

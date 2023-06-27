@@ -1,0 +1,50 @@
+version: '4.2'
+services:
+  user-service-db:
+    image: postgres:13.3
+    container_name: user_service_db
+    restart: always
+    logging:
+      driver: none
+    environment:
+      POSTGRES_DB: ${USER_SERVICE_DB_NAME}
+      POSTGRES_USER: ${USER_SERVICE_DB_USER}
+      POSTGRES_PASSWORD: ${USER_SERVICE_DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+
+  pgadmin4-container:
+    image: dpage/pgadmin4
+    depends_on:
+      - user-service-db
+    restart: always
+    logging:
+      driver: none
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+  monorepo:
+    image: monorepo
+    depends_on:
+      - user-service-db
+    build:
+      context: ../
+      dockerfile: ./deploy/Dockerfile.dev
+    env_file:
+      - ../envs/.env.dev
+    ports:
+      - '8080:${API_GATEWAY_PORT}'
+      - '9229:9229'
+    volumes:
+      - ../:/app
+
+volumes:
+  local_pgdata:
+  pgadmin-data:

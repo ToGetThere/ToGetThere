@@ -9,7 +9,7 @@
       "options": {
         "commands": [
           "nx build user-service",
-          "docker build -f ./apps/user-service/Dockerfile . -t user-service"
+          "docker build -f ./apps/user-service/docker/Dockerfile . -t user-service"
         ],
         "parallel": false
       }
@@ -19,6 +19,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
+        "poll": 500,
         "target": "node",
         "compiler": "tsc",
         "outputPath": "dist/apps/user-service",

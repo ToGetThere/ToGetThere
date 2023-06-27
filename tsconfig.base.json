@@ -15,10 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@to-get-there/..//tools": ["tools/src/index.ts"],
       "@to-get-there/config": ["libs/config/src/index.ts"],
       "@to-get-there/grpc": ["libs/grpc/src/index.ts"],
       "@to-get-there/kafka": ["libs/kafka/src/index.ts"],
       "@to-get-there/lib/kafka": ["libs/lib/kafka/src/index.ts"],
+      "@to-get-there/tools": ["libs/tools/src/index.ts"],
       "@to-get-there/types": ["libs/types/src/index.ts"]
     }
   },

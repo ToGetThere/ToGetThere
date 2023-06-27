@@ -9,6 +9,6 @@ service UserService {
 message EmptyPayload {}
 
 message User {
-  string id = 1;
+  int32 id = 1;
   string name = 2;
 }
