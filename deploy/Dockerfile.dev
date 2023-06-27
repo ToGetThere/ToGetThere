@@ -10,8 +10,6 @@ RUN mkdir -p /app && cp -a /tmp/node_modules /app/
 WORKDIR /app
 COPY . /app
 
-RUN yarn add @nrwl/nx-linux-arm64-gnu
-
 EXPOSE 9229
 
 CMD ["yarn", "nx", "run-many", "--target=serve", "--projects=api-gateway,user-service", "--parallel"]

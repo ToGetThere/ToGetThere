@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@to-get-there/..//tools": ["tools/src/index.ts"],
+      "@to-get-there/apps/mobile-app": ["apps/mobile-app/src/index.ts"],
       "@to-get-there/config": ["libs/config/src/index.ts"],
       "@to-get-there/grpc": ["libs/grpc/src/index.ts"],
       "@to-get-there/kafka": ["libs/kafka/src/index.ts"],

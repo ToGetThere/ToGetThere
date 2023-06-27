@@ -60,3 +60,6 @@ apps/**/src/grpc
 
 envs/.env.dev
 envs/.env.prod
+apps/mobile-app/dev-clients
+apps/my-app-e2e/artifacts
+apps/test-app-e2e/artifacts
